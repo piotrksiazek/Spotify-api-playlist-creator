@@ -5,17 +5,22 @@ from urllib.parse import urlencode
 import requests
 import spotipy
 import spotipy.util as util
+from datetime import datetime, timedelta
+from config import CLIENT_ID, CLIENT_SECRET, scope, redirect_uri
+from spotify_api_requests import make_api_request
 
-
-scope = "playlist-modify-public"
-redirect_uri = 'http://127.0.0.1:5000/spotify_callback/'
+AUTHORIZE_BASE_URL = 'https://accounts.spotify.com/authorize/?'
+TOKEN_BASE_URL = 'https://accounts.spotify.com/api/token'
 
 @app.route('/spotify_callback/')
 def spotify_callback():
-    code = request.args.get('code')
-    error = request.args.get('error')
+    try:
+        code = request.args.get('code')
+        error = request.args.get('error')
+    except:
+        return "unable to retrieve callback code"
 
-    response = requests.post('https://accounts.spotify.com/api/token', data={
+    response = requests.post(TOKEN_BASE_URL, data={
         'grant_type': 'authorization_code',
         'code': code,
         'redirect_uri': redirect_uri,
@@ -28,27 +33,47 @@ def spotify_callback():
         session['token_type'] = response['token_type']
         session['refresh_token'] = response['refresh_token']
         session['expires_in'] = response['expires_in']
+        session['expiration_date'] = datetime.now() + timedelta(seconds=session['expires_in'])
         if 'error' in response.keys():
             return response['error']
     return redirect(url_for('index'))
 
-    # access_token = 
 
 @app.route('/authorize')
 def authorize():
-    url = 'https://accounts.spotify.com/authorize/?' + urlencode({
+    url = AUTHORIZE_BASE_URL + urlencode({
         'scope': scope,
         'response_type': 'code',
         'redirect_uri': redirect_uri,
         'client_id': CLIENT_ID
     })
-    return redirect(url)
+
+    if 'access_token' not in session or 'refresh_token' not in session or 'token_create' not in session:
+        session.pop('access_token', None)
+        session.pop('refresh_token', None)
+        session.pop('token_create', None)
+        session.pop('spotify_username', None)        
+        return redirect(url)
+    
+    if datetime.now() > session.get("expiration_date"):
+        headers = {"Content-Type":"application/x-www-form-urlencoded"}
+        payload = {"grant_type":"refresh_token","refresh_token":session.get("refresh_token")}
+        response = requests.post(url, headers=headers, data=payload, auth=requests.auth.HTTPBasicAuth(CLIENT_ID, CLIENT_SECRET))
+        
+        if response.status_code == 200:
+            parsed_response = response.json()
+            session['access_token'] = parsed_response['access_token']
+
+        else:
+            return redirect(url)
+
+    return redirect(url_for('index'))
 
 @app.route('/')
 def index():
-    # sess_access_token, sess_refresh_token, sess_token_create_time = session.get("access_token", None) , session.get('refresh_token', None), session.get('token_create', None)
-    # print(sess_access_token)
+    print(make_api_request('playlists')['href'])
     return render_template('index.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

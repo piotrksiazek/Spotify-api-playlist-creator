@@ -3,7 +3,7 @@ import os
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
 
-
+CLIENT_ID = os.environ.get("CLIENT_ID")
+CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
 scope = "playlist-modify-public"
-my_uri = 'spotify:playlist:1qBB4GjHyKZYnQclPJfNe0'
-user='rbegouu2bjgv6t268sa2dc9hj'
+redirect_uri = os.environ.get("redirect_uri")
