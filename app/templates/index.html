@@ -2,5 +2,7 @@
 <div class="narrow">
   <a href={{url_for('authorize')}}>login</a>
 </div>
-
+<script>
+   axios.get('/get_user_playlists').then(console.log("XD"));
+</script>
 {% endblock %}
