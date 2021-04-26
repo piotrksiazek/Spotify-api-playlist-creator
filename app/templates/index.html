@@ -2,7 +2,31 @@
 <div class="narrow">
   <a href={{url_for('authorize')}}>login</a>
 </div>
+
+<!-- <div class="narrow">
+  <a href={{url_for('spotify_api_requests.get_user_playlists')}}>login</a>
+</div>
+
+<div id="names">
+  <button id="get_names">Daj nazwy</button>
+</div>
+
 <script>
-   axios.get('/get_user_playlists').then(console.log("XD"));
-</script>
+   const getUserPlaylists = () => {
+    axios.get('/get_user_playlists').then(console.log("XD")).then(
+      function(response) {
+          const names = document.querySelector("#names");
+          items = response.data.items
+          for(let item of items)
+          {
+            const element = document.createElement('div');
+            element.innerText = item.name
+            names.append(element);
+          }
+      }
+    );}
+
+   const button = document.querySelector("#get_names");
+   button.addEventListener("click", getUserPlaylists)
+</script> -->
 {% endblock %}
