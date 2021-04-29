@@ -23,8 +23,6 @@
 </styl>
 {% endblock %}
 <body>
-  {% block content %}{% endblock %}
-
   <!-- navbar -->
   <div class="navbar">
     <div class="container flex">
@@ -38,6 +36,8 @@
       </nav>
     </div>
   </div>
+  {% block content %}{% endblock %}
+
 
   <!-- JavaScript Bundle with Popper -->
   <!-- <script

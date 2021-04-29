@@ -5,5 +5,5 @@ class Config(object):
 
 CLIENT_ID = os.environ.get("CLIENT_ID")
 CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
-scope = "playlist-modify-public"
+scope = "playlist-modify-public playlist-modify-private"
 redirect_uri = os.environ.get("redirect_uri")

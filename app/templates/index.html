@@ -1,7 +1,29 @@
 {% extends "base.html" %} {% block content %}
-<!-- <div class="narrow">
+<div class="narrow">
   <a href={{url_for('authorize')}}>login</a>
-</div> -->
+</div>
+
+<div class="narrow">
+  <a href={{url_for('spotify_api_requests.create_new_playlist')}}>playlist</a>
+</div>
+
+<section class="showcase">
+  <div class="container grid">
+    <div class="showcase-text">
+      <h1>Explore new music</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum
+      </p>
+      <a href="" class="btn btn-outline">Loerm ipsum</a>
+    </div>
+  </div>
+</section>
 
 <!-- <div class="narrow">
   <a href={{url_for('spotify_api_requests.get_user_playlists')}}>login</a>

@@ -7,7 +7,7 @@ import spotipy
 import spotipy.util as util
 from datetime import datetime, timedelta
 from config import CLIENT_ID, CLIENT_SECRET, scope, redirect_uri
-from .spotify_api_requests import make_api_request
+from .spotify_api_requests import make_api_request, can_make_request
 
 AUTHORIZE_BASE_URL = 'https://accounts.spotify.com/authorize/?'
 TOKEN_BASE_URL = 'https://accounts.spotify.com/api/token'
@@ -72,8 +72,6 @@ def authorize():
 
 @app.route('/')
 def index():
-    # print(make_api_request('playlists')['href'])
-    print(session.get("expiration_date"))
     return render_template('index.html')
 
 
