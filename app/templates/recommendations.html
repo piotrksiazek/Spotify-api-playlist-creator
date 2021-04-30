@@ -1,17 +1,33 @@
 {% extends "base.html" %} {% block content %}
-<form class="form">
-  <select class="playlists-select"></select>
-  <input type="submit" />
-</form>
+<div>
+  <form class="form">
+    <select class="playlists-select"></select>
+    <input type="submit" />
+  </form>
+  <div id="recommendations"></div>
+</div>
 
 <script>
   const playlistSelect = document.querySelector(".playlists-select");
-  const playlists = axios.get("/get_user_playlists").then(function ({ data }) {
+  const container = document.querySelector("#recommendations");
+  const playlists = {};
+  axios.get("/get_user_playlists").then(function ({ data }) {
     for (let playlist of data) {
       const option = document.createElement("option");
       option.value = playlist.id;
       option.innerText = playlist.name;
+      playlists[playlist.id] = playlist.tracks;
       playlistSelect.append(option);
+    }
+  });
+
+  playlistSelect.addEventListener("change", function (evt) {
+    const tracks = playlists[this.value];
+    container.innerHTML = "";
+    for (let i = 0; i < tracks.length; i++) {
+      const ul = document.createElement("ul");
+      ul.innerText = tracks[i].name;
+      container.append(ul);
     }
   });
 </script>
