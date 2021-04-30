@@ -25,8 +25,10 @@ class Playlist:
                 items_from_playlist.append(artist)
         elif type_of_item == 'track':
             for index, item in enumerate(playlist['items']):
-                artist = playlist['items'][index]['track']['id']
-                items_from_playlist.append(artist)
+                track = {}
+                track['id'] = playlist['items'][index]['track']['id']
+                track['name'] = playlist['items'][index]['track']['name']
+                items_from_playlist.append(track)
 
         return list(set(items_from_playlist)) if unique else items_from_playlist
 

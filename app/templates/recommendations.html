@@ -1,5 +1,18 @@
 {% extends "base.html" %} {% block content %}
-<form></form>
+<form class="form">
+  <select class="playlists-select"></select>
+  <input type="submit" />
+</form>
 
-<script></script>
+<script>
+  const playlistSelect = document.querySelector(".playlists-select");
+  const playlists = axios.get("/get_user_playlists").then(function ({ data }) {
+    for (let playlist of data) {
+      const option = document.createElement("option");
+      option.value = playlist.id;
+      option.innerText = playlist.name;
+      playlistSelect.append(option);
+    }
+  });
+</script>
 {% endblock %}

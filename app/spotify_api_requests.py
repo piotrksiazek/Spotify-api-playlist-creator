@@ -2,10 +2,12 @@ from config import CLIENT_ID, CLIENT_SECRET, scope, redirect_uri
 from flask import redirect, url_for, request, session, json, Blueprint
 import requests
 from datetime import datetime
-import Playlist
+from Playlist import Playlist
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
 BASE_URL = "https://api.spotify.com/v1/me/"
-
+spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 spotify_api_requests = Blueprint('spotify_api_requests', __name__, static_folder="static", template_folder="templates")
 
 def can_make_request():
@@ -32,7 +34,23 @@ def make_api_request(endpoint: str, post_=False, put_=False, params={}) -> str:
 
 @spotify_api_requests.route('/get_user_playlists')
 def get_user_playlists():
-    return make_api_request('playlists')
+    """
+    extract names and ids from user playlylists
+    """
+    response = []
+    items = make_api_request('playlists')['items']
+    for item in items:
+        playlist = {}
+        playlist['name'] = item['name']
+        playlist['id'] = item['id']
+        playlist['tracks'] = Playlist.get_playlist_items(spotify, item['id'], 'track', unique=False)
+        response.append(playlist)
+    return json.dumps(response)
+
+@spotify_api_requests.route('/get_playlist_tracks')
+def get_playlist_tracks():
+    return Playlist.get_playlist_items(spotify, )
+
 
 def get_user_id():
     return make_api_request("")['id']
