@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, request, session, json
 from flask_login import current_user, login_user, logout_user, login_required
-from app import app, models
+from app import app, models, spotify
 from urllib.parse import urlencode
 import requests
 import spotipy
@@ -72,6 +72,11 @@ def authorize():
 
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+@app.route('/xd')
+def xd():
+    print(spotify.artist_albums('spotify:artist:37KB5e6cGsN1AQAB9Omm1U')['items'])
     return render_template('index.html')
 
 

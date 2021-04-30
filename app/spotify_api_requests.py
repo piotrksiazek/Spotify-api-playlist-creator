@@ -2,6 +2,7 @@ from config import CLIENT_ID, CLIENT_SECRET, scope, redirect_uri
 from flask import redirect, url_for, request, session, json, Blueprint
 import requests
 from datetime import datetime
+import Playlist
 
 BASE_URL = "https://api.spotify.com/v1/me/"
 
@@ -36,18 +37,18 @@ def get_user_playlists():
 def get_user_id():
     return make_api_request("")['id']
 
-@spotify_api_requests.route('/create_new_playlist')
-def create_new_playlist():
+def create_new_playlist(name: str, description: str = "New playlist description", is_public: bool = True):
     if can_make_request():
+        public = 'true' if is_public else 'false'
         access_token = session.get("access_token")
         headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + access_token}
         request_body = json.dumps({
-            "name": "zło",
-            "description": "New playlist description",
-            "public": 'false'
+            "name": name,
+            "description": description,
+            "public": public
         })
         URL = f'https://api.spotify.com/v1/users/{get_user_id()}/playlists'
         response = requests.post(URL, data=request_body, headers=headers)
-        return str(response.text)
-    return "SD"
+        return {'status': response.status_code}
+    return {'status': 400}
     
