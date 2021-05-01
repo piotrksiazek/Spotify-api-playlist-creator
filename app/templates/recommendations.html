@@ -7,44 +7,7 @@
   <div id="recommendations"></div>
 </div>
 
-<script>
-  const validateInput = (checkbox, checkboxes) => {
-    const numberOfChecked = [...checkboxes].filter((box) => box.checked).length;
-    if (numberOfChecked > 5) {
-      checkbox.checked = false;
-    } else {
-      checkbox.checked = true;
-    }
-  };
-  const playlistSelect = document.querySelector(".playlists-select");
-  const container = document.querySelector("#recommendations");
-  const playlists = {};
-  let checkboxes = [];
-  axios.get("/get_user_playlists").then(function ({ data }) {
-    for (let playlist of data) {
-      const option = document.createElement("option");
-      option.value = playlist.id;
-      option.innerText = playlist.name;
-      playlists[playlist.id] = playlist.tracks;
-      playlistSelect.append(option);
-    }
-  });
-
-  playlistSelect.addEventListener("change", function (evt) {
-    const tracks = playlists[this.value];
-    container.innerHTML = ""; //clear tracks from previous event
-    for (let i = 0; i < tracks.length; i++) {
-      const checkbox = document.createElement("div");
-      checkbox.innerHTML = `<input type="checkbox" class="track-checkbox" value=${tracks[i].id} id=track${i} name=${tracks[i].name}>
-                            <label for=${tracks[i].name}>${tracks[i].name}</label>`;
-      container.append(checkbox);
-    }
-    checkboxes = document.querySelectorAll(".track-checkbox");
-    checkboxes.forEach((checkbox) => {
-      checkbox.addEventListener("click", function (evt) {
-        validateInput(checkbox, checkboxes);
-      });
-    });
-  });
+<script src={{ url_for('static', filename='recommendations.js') }}>
+  
 </script>
 {% endblock %}

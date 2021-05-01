@@ -76,3 +76,18 @@ img {
   align-items: center;
   height: 100%;
 }
+
+/* .checked {
+  border: 5px solid red;
+}
+
+.checkbox-container {
+} */
+/* hide default checkbox style */
+/* .checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+} */
