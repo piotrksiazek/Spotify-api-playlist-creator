@@ -5,6 +5,7 @@ from datetime import datetime
 from Playlist import Playlist
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from typing import List
 
 BASE_URL = "https://api.spotify.com/v1/me/"
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
@@ -67,6 +68,24 @@ def create_new_playlist(name: str, description: str = "New playlist description"
         })
         URL = f'https://api.spotify.com/v1/users/{get_user_id()}/playlists'
         response = requests.post(URL, data=request_body, headers=headers)
-        return {'status': response.status_code}
+        if(response.status_code == 201):
+            return {'status': response.status_code, 'id': response.json()['id']}
     return {'status': 400}
+
+def create_and_add_songs(track_ids: List[str], name: str, description: str = "New playlist description", is_public: bool = True):
+    playlist_id = ""
+    create_playlist_response = create_new_playlist(name, description, is_public)
+    if create_playlist_response['status'] == 201:
+        print("success")
+        playlist_id = create_playlist_response['id']
+    if can_make_request() and playlist_id:
+        access_token = session.get("access_token")
+        headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + access_token}
+        url = f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks?uris={",".join(track_ids)}'
+        response = requests.post(url, {}, headers=headers)
+        return response
+
+def add_prefix(prefix: str, input_list: List):
+    return [prefix + element for element in input_list]
+
     

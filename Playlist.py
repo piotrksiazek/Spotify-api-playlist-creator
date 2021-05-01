@@ -183,7 +183,7 @@ class Playlist:
         return all_tracks
 
     @staticmethod
-    def get_deep_recommendations(spotify: Spotify, user_id: str, seed_tracks: List[str], seed_genres: List[str], min_depth: int, size: int):
+    def get_deep_recommendations(spotify: Spotify, user_id: str, seed_tracks: List[str], seed_genres: List[str], min_depth: int, size: int) -> List[str]:
         """
         Searches spotify using recommendations and based on depth parameter, searches for recommendations of recommendations
         so that returned list of tracks isn't directly related to seed tracks. Seed_tracks and seed_genres cant't exceed

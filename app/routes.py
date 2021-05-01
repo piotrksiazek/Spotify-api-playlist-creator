@@ -7,7 +7,8 @@ import spotipy
 import spotipy.util as util
 from datetime import datetime, timedelta
 from config import CLIENT_ID, CLIENT_SECRET, scope, redirect_uri
-from .spotify_api_requests import make_api_request, can_make_request
+from .spotify_api_requests import make_api_request, can_make_request, spotify, get_user_id, create_new_playlist, create_and_add_songs, add_prefix
+from Playlist import Playlist
 
 AUTHORIZE_BASE_URL = 'https://accounts.spotify.com/authorize/?'
 TOKEN_BASE_URL = 'https://accounts.spotify.com/api/token'
@@ -74,9 +75,21 @@ def authorize():
 def index():
     return render_template('index.html')
 
-@app.route('/recommendations')
+@app.route('/recommendations', methods=['GET', 'POST'])
 def recommendations():
     if can_make_request():
+        if request.method == 'POST':
+            seed_genres = []
+            name = request.form.get('name') if request.form.get('name') else "New Playlist"
+            description = ""
+            depth = 1
+            size = 10
+            seed_tracks = request.form.getlist('seed')
+            if seed_tracks:
+                track_ids = Playlist.get_deep_recommendations(spotify, get_user_id(),
+                                                          seed_tracks, seed_genres, depth, size)
+                track_ids = add_prefix('spotify:track:', track_ids)
+                create_and_add_songs(track_ids, name, description, True)
         return render_template('recommendations.html')
     return redirect(url_for('authorize'))
 

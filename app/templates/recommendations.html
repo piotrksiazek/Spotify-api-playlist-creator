@@ -1,10 +1,12 @@
 {% extends "base.html" %} {% block content %}
 <div>
-  <form class="form">
+  <form class="form" id="recommendationsForm" action={{url_for('recommendations')}} method="post">
     <select class="playlists-select"></select>
+    <input type="text" name="name" id="playlistName" placeholder="New Playlist" minlength="1" maxlength="14">
     <input type="submit" />
+    <div id="recommendations"></div>
   </form>
-  <div id="recommendations"></div>
+  
 </div>
 
 <script src={{ url_for('static', filename='recommendations.js') }}>

@@ -1,8 +1,11 @@
 const validateInput = (checkbox, checkboxes) => {
   const numberOfChecked = [...checkboxes].filter((box) => box.checked).length;
-  console.log(numberOfChecked);
-  if (numberOfChecked > 5) {
+  if (numberOfChecked > 5 && numberOfChecked) {
     checkbox.checked = false;
+    return false;
+  } else if (numberOfChecked < 1) {
+    //One checkbox has to be checked
+    checkbox.checked = true;
     return false;
   }
   return true;
@@ -37,14 +40,39 @@ axios.get("/get_user_playlists").then(function ({ data }) {
   }
 });
 
+//TODO dodaj automatyczne zaznaczanie jednego pola.
+
+const addCheckbox = (
+  checkboxContainer,
+  id,
+  label,
+  className,
+  isChecked = False
+) => {
+  if (isChecked) {
+    checkboxContainer.classList.add(className, "checked");
+    checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name="seed" checked>
+                                  <label for=${id}>${label}</label>`;
+  } else {
+    checkboxContainer.classList.add(className, "unchecked");
+    checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name="seed">
+                                  <label for=${id}>${label}</label>`;
+  }
+};
+
 playlistSelect.addEventListener("change", function (evt) {
   const tracks = playlists[this.value];
   container.innerHTML = ""; //clear tracks from previous event
   for (let i = 0; i < tracks.length; i++) {
     const checkboxContainer = document.createElement("div");
-    checkboxContainer.classList.add("checkbox-container", "unchecked");
-    checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${tracks[i].id} id=track${i} name=${tracks[i].name}>
-                            <label for=${tracks[i].name}>${tracks[i].name}</label>`;
+    isChecked = i === 0 ? true : false; //at least one check box should be checked by default
+    addCheckbox(
+      checkboxContainer,
+      tracks[i].id,
+      tracks[i].name,
+      "checkbox-container",
+      isChecked
+    );
     container.append(checkboxContainer);
   }
   checkboxes = document.querySelectorAll(".track-checkbox");
