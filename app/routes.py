@@ -76,7 +76,9 @@ def index():
 
 @app.route('/recommendations')
 def recommendations():
-    return render_template('recommendations.html')
+    if can_make_request():
+        return render_template('recommendations.html')
+    return redirect(url_for('authorize'))
 
 
 if __name__ == '__main__':

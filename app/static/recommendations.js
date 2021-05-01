@@ -9,7 +9,14 @@ const validateInput = (checkbox, checkboxes) => {
 };
 
 const toggleCheckedClass = (checkbox) => {
-  checkbox.parentNode.classList.toggle("checked");
+  //   checkbox.parentNode.classList.toggle("checked");
+  if (checkbox.checked) {
+    checkbox.parentNode.classList.remove("unchecked");
+    checkbox.parentNode.classList.add("checked");
+  } else {
+    checkbox.parentNode.classList.remove("checked");
+    checkbox.parentNode.classList.add("unchecked");
+  }
 };
 
 const toggleCheckbox = (checkbox) => {
@@ -35,7 +42,7 @@ playlistSelect.addEventListener("change", function (evt) {
   container.innerHTML = ""; //clear tracks from previous event
   for (let i = 0; i < tracks.length; i++) {
     const checkboxContainer = document.createElement("div");
-    checkboxContainer.classList.add("checkbox-container");
+    checkboxContainer.classList.add("checkbox-container", "unchecked");
     checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${tracks[i].id} id=track${i} name=${tracks[i].name}>
                             <label for=${tracks[i].name}>${tracks[i].name}</label>`;
     container.append(checkboxContainer);
