@@ -1,8 +1,19 @@
 const validateInput = (checkbox, checkboxes) => {
   const numberOfChecked = [...checkboxes].filter((box) => box.checked).length;
+  console.log(numberOfChecked);
   if (numberOfChecked > 5) {
     checkbox.checked = false;
+    return false;
   }
+  return true;
+};
+
+const toggleCheckedClass = (checkbox) => {
+  checkbox.parentNode.classList.toggle("checked");
+};
+
+const toggleCheckbox = (checkbox) => {
+  checkbox.checked = !checkbox.checked;
 };
 
 const playlistSelect = document.querySelector(".playlists-select");
@@ -31,8 +42,11 @@ playlistSelect.addEventListener("change", function (evt) {
   }
   checkboxes = document.querySelectorAll(".track-checkbox");
   checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener("click", function (evt) {
-      validateInput(checkbox, checkboxes);
+    checkbox.parentNode.addEventListener("click", function (evt) {
+      toggleCheckbox(checkbox);
+      if (validateInput(checkbox, checkboxes)) {
+        toggleCheckedClass(checkbox);
+      }
     });
   });
 });

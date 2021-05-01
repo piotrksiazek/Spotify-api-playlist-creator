@@ -77,12 +77,12 @@ img {
   height: 100%;
 }
 
-/* .checked {
+.checked {
   border: 5px solid red;
 }
 
 .checkbox-container {
-} */
+}
 /* hide default checkbox style */
 /* .checkbox-container input {
   position: absolute;
