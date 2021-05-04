@@ -82,8 +82,8 @@ def recommendations():
             seed_genres = []
             name = request.form.get('name') if request.form.get('name') else "New Playlist"
             description = ""
-            depth = 1
-            size = 10
+            depth = int(request.form.get('depth'))
+            size = int(request.form.get('size'))
             seed_tracks = request.form.getlist('seed')
             if seed_tracks:
                 track_ids = Playlist.get_deep_recommendations(spotify, get_user_id(),

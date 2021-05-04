@@ -40,22 +40,21 @@ axios.get("/get_user_playlists").then(function ({ data }) {
   }
 });
 
-//TODO dodaj automatyczne zaznaczanie jednego pola.
-
 const addCheckbox = (
   checkboxContainer,
   id,
   label,
   className,
+  name,
   isChecked = False
 ) => {
   if (isChecked) {
     checkboxContainer.classList.add(className, "checked");
-    checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name="seed" checked>
+    checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name=${name} checked>
                                   <label for=${id}>${label}</label>`;
   } else {
     checkboxContainer.classList.add(className, "unchecked");
-    checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name="seed">
+    checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name=${name}>
                                   <label for=${id}>${label}</label>`;
   }
 };
@@ -71,6 +70,7 @@ playlistSelect.addEventListener("change", function (evt) {
       tracks[i].id,
       tracks[i].name,
       "checkbox-container",
+      "seed",
       isChecked
     );
     container.append(checkboxContainer);
@@ -85,3 +85,18 @@ playlistSelect.addEventListener("change", function (evt) {
     });
   });
 });
+
+const size = {
+  span: document.querySelector("#size"),
+  slider: document.querySelector("#sizeSlider"),
+};
+
+const depth = {
+  span: document.querySelector("#depth"),
+  slider: document.querySelector("#depthSlider"),
+};
+
+const updateRangeLabel = (element) => {
+  element.span.innerText = element.slider.getAttribute("value");
+  console.log("XD");
+};
