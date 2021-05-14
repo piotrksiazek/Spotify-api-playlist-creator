@@ -30,16 +30,22 @@ const playlistSelect = document.querySelector(".playlists-select");
 const container = document.querySelector("#recommendations");
 const playlists = {};
 let checkboxes = [];
-axios.get("/get_user_playlists").then(function ({ data }) {
-  for (let playlist of data) {
-    console.log(playlist);
-    const option = document.createElement("option");
-    option.value = playlist.id;
-    option.innerText = playlist.name;
-    playlists[playlist.id] = playlist.tracks;
-    playlistSelect.append(option);
-  }
-});
+
+axios
+  .get("/get_user_playlists")
+  .then(function ({ data }) {
+    for (let playlist of data) {
+      const option = document.createElement("option");
+      option.value = playlist.id;
+      option.innerText = playlist.name;
+      playlists[playlist.id] = playlist.tracks;
+      playlistSelect.append(option);
+    }
+  })
+  .then(() => {
+    const change = new Event("change");
+    playlistSelect.dispatchEvent(change);
+  });
 
 const addCheckbox = (
   checkboxContainer,
@@ -58,15 +64,6 @@ const addCheckbox = (
   }
   checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name=${name} ${checkedText}>
                                  <label for=${id}>${label}</label>`;
-  // if (isChecked) {
-  //   checkboxContainer.classList.add(className, "checked");
-  //   checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name=${name} checked>
-  //                                 <label for=${id}>${label}</label>`;
-  // } else {
-  //   checkboxContainer.classList.add(className, "unchecked");
-  //   checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name=${name}>
-  //                                 <label for=${id}>${label}</label>`;
-  // }
 };
 
 playlistSelect.addEventListener("change", function (evt) {
