@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block content %}
+<div class="containter narrow">
+    <form action="" method="get">
+        <input type="text">
+    </form>
+    <button class="submit">Submit</button>
+</div>
+<div id="spotifyWidget"></div>
+<script src={{ url_for('static', filename='leastPopularTrack.js') }}></script>
+{% endblock %}

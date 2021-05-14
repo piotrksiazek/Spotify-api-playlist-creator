@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from config import CLIENT_ID, CLIENT_SECRET, scope, redirect_uri
 from .spotify_api_requests import make_api_request, can_make_request, spotify, get_user_id, create_new_playlist, create_and_add_songs, add_prefix
 from Playlist import Playlist
+from Track import Track
 
 AUTHORIZE_BASE_URL = 'https://accounts.spotify.com/authorize/?'
 TOKEN_BASE_URL = 'https://accounts.spotify.com/api/token'
@@ -93,6 +94,25 @@ def recommendations():
         return render_template('recommendations.html')
     return redirect(url_for('authorize'))
 
+@app.route('/get_least_popular_track', methods=['GET'])
+def get_least_popular_track():
+    artist_id = request.args['artist_id']
+    track_id = ""
+    status = ""
+    response = {}
+    try:
+        response['track_id'] = Track.get_the_least_popular_track_id(spotify, artist_id)
+        response['status'] = 200
+    except spotipy.exceptions.SpotifyException:
+        response['track_id'] = ""
+        response['status'] = 400
+    finally:
+        print(response)
+        return response
+
+@app.route('/least_popular_track', methods=['GET'])
+def least_popular_track():        
+    return render_template('least_popular_track.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
