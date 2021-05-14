@@ -1,25 +1,27 @@
 {% extends "base.html" %} {% block content %}
-<div>
+<div style="padding: 50px">
   <form class="form" id="recommendationsForm" action={{url_for('recommendations')}} method="post">
     <select class="playlists-select"></select>
     <input type="text" name="name" id="playlistName" placeholder="New Playlist" minlength="1" maxlength="14">
-
-    <div>
-        <span id="depthAmount">1</span>
-        <input type="range" id="depthSlider" name="depth"
-              min="1" max="10" step="1" value="1"
-              oninput="depthAmount.innerText=this.value">
-        
-    </div>
-    
-    <div>
-        <span id="sizeAmount">1</span>
-        <input type="range" id="sizeSlider" name="size" 
-              min="1" max="50" value="1" step="1"
-              oninput="sizeAmount.innerText=this.value">
-        
-    </div>
-
+    <!-- range inputs -->
+    <div> 
+      <div class="centered2">
+          <span id="depthAmount" class="centered">1</span>
+          <input type="range" id="depthSlider" name="depth"
+                min="1" max="10" step="1" value="1"
+                oninput="depthAmount.innerText=this.value">
+          
+      </div>
+      
+      <div>
+          <span id="sizeAmount">1</span>
+          <input type="range" id="sizeSlider" name="size" 
+                min="1" max="50" value="1" step="1"
+                oninput="sizeAmount.innerText=this.value">
+          
+      </div>
+  </div>
+  <!-- end range inputs -->
     <input type="submit" />
     <div id="recommendations"></div>
   </form>

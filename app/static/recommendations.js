@@ -32,6 +32,7 @@ const playlists = {};
 let checkboxes = [];
 axios.get("/get_user_playlists").then(function ({ data }) {
   for (let playlist of data) {
+    console.log(playlist);
     const option = document.createElement("option");
     option.value = playlist.id;
     option.innerText = playlist.name;
@@ -48,15 +49,24 @@ const addCheckbox = (
   name,
   isChecked = False
 ) => {
+  let checkedText = "";
   if (isChecked) {
     checkboxContainer.classList.add(className, "checked");
-    checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name=${name} checked>
-                                  <label for=${id}>${label}</label>`;
+    checkedText = "checked";
   } else {
     checkboxContainer.classList.add(className, "unchecked");
-    checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name=${name}>
-                                  <label for=${id}>${label}</label>`;
   }
+  checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name=${name} ${checkedText}>
+                                 <label for=${id}>${label}</label>`;
+  // if (isChecked) {
+  //   checkboxContainer.classList.add(className, "checked");
+  //   checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name=${name} checked>
+  //                                 <label for=${id}>${label}</label>`;
+  // } else {
+  //   checkboxContainer.classList.add(className, "unchecked");
+  //   checkboxContainer.innerHTML = `<input type="checkbox" class="track-checkbox" value=${id} id=${id} name=${name}>
+  //                                 <label for=${id}>${label}</label>`;
+  // }
 };
 
 playlistSelect.addEventListener("change", function (evt) {
@@ -85,18 +95,3 @@ playlistSelect.addEventListener("change", function (evt) {
     });
   });
 });
-
-const size = {
-  span: document.querySelector("#size"),
-  slider: document.querySelector("#sizeSlider"),
-};
-
-const depth = {
-  span: document.querySelector("#depth"),
-  slider: document.querySelector("#depthSlider"),
-};
-
-const updateRangeLabel = (element) => {
-  element.span.innerText = element.slider.getAttribute("value");
-  console.log("XD");
-};
