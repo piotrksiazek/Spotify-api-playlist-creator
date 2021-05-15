@@ -47,6 +47,7 @@ img {
 
 .navbar .flex {
   justify-content: space-between;
+  overflow: hidden;
 }
 
 .navbar ul {
@@ -259,4 +260,17 @@ input[type="submit"]:hover {
 }
 .submit:hover {
   background-color: #20cf5e;
+}
+
+#lyrics {
+  text-align: center;
+}
+.verse {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.invisible {
+  display: none;
 }

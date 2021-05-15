@@ -64,7 +64,13 @@ class Track:
         :param track_id: spotify id of the track
         :returns dictionary containing audio features of the track
         """
-        return spotify.audio_features([track_id])[0]
+        response = {}
+        try:
+            response['audio_features'] = spotify.audio_features([track_id])[0]
+            response['status'] = 200
+        except:
+            response['status'] = 400
+        return response
 
     @staticmethod
     def get_lyrics(artist: str, track_name: str) -> str:
@@ -110,7 +116,7 @@ class Track:
         result['genre'] = json_data['strGenre']
         result['style'] = json_data['strStyle']
         result['formed_year'] = json_data['intFormedYear']
-        result['artist banner'] = json_data['strArtistBanner']
+        result['artist_banner'] = json_data['strArtistBanner']
         result['artist_bio'] = json_data['strBiographyEN']
         result['mood'] = json_data['strMood']
         result['website'] = json_data['strWebsite']

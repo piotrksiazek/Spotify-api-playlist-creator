@@ -94,6 +94,7 @@ def recommendations():
         return render_template('recommendations.html')
     return redirect(url_for('authorize'))
 
+#get least popular track
 @app.route('/get_least_popular_track', methods=['GET'])
 def get_least_popular_track():
     artist_id = request.args['artist_id']
@@ -107,12 +108,33 @@ def get_least_popular_track():
         response['track_id'] = ""
         response['status'] = 400
     finally:
-        print(response)
         return response
 
 @app.route('/least_popular_track', methods=['GET'])
 def least_popular_track():        
     return render_template('least_popular_track.html')
+#end get least popular track
+
+#all about that track
+@app.route('/all_about_that_track', methods=['GET'])
+def all_about_that_track():
+    return render_template("all_about_that_track.html")
+
+@app.route('/get_audio_features', methods=['GET'])
+def get_audio_features():
+    track_id = request.args['track_id']
+    return Track.get_audio_features(spotify, track_id)
+
+@app.route('/get_track_info', methods=['GET'])
+def get_track_info():
+    track_id = request.args['track_id']
+    return Track.get_track_info(spotify, track_id)
+
+@app.route('/get_artist_info', methods=['GET'])
+def get_artist_info():
+    artist_name = request.args['artist_name']
+    return Track.get_artist_info_audiodb(artist_name)
+#end all about that track
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -76,7 +76,6 @@ def create_and_add_songs(track_ids: List[str], name: str, description: str = "Ne
     playlist_id = ""
     create_playlist_response = create_new_playlist(name, description, is_public)
     if create_playlist_response['status'] == 201:
-        print("success")
         playlist_id = create_playlist_response['id']
     if can_make_request() and playlist_id:
         access_token = session.get("access_token")
