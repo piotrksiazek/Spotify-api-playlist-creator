@@ -122,7 +122,7 @@ class Track:
         result['website'] = json_data['strWebsite']
         result['facebook'] = json_data['strFacebook']
         result['twitter'] = json_data['strTwitter']
-        result['number of members'] = json_data['intMembers']
+        result['number_of_members'] = json_data['intMembers']
         result['country'] = json_data['strCountry']
         result['discography'] = Track.get_discography_audiodb(result['id'])
         return result
@@ -151,7 +151,7 @@ class Track:
         result['explicit'] = track['explicit']
         try:
             result['lyrics'] = Track.get_lyrics(result['artist'], result['name'])
-        except json.decoder.JSONDecodeError:
+        except:
             result['lyrics'] = 'Lyrics not found.'
         if not result['lyrics']:
             result['lyrics'] = 'Lyrics not found.'

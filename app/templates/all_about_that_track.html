@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% block content %} 
 <input type="text" placeholder="Spotify artist uri">
 <button class="submit">Submit</button>
+<div id="all_about_that_track_error"></div>
 <div id="allAboutThatTrack" class="container invisible">
     <!-- spotifyWidget -->
     <div id="spotifyWidget"></div>
@@ -56,6 +57,10 @@
                   </div>
             </div>
     <!-- end bio -->
+
+    <!-- discography -->
+    <div class="card-group" id="discography" style="padding-top: 2rem;"></div>
+    <!-- and discography -->
 </div>
 <script src={{ url_for('static', filename='allAboutThatTrack.js') }}></script>
 {% endblock %}
