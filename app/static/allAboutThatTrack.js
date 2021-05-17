@@ -21,6 +21,7 @@ const createLyrics = (lyrics, container) => {
 };
 
 const addContent = (content, container) => {
+  let index = 0;
   for (let element of content) {
     if (element.text && element.type === "album") {
       const album = document.createElement("div");
@@ -30,12 +31,19 @@ const addContent = (content, container) => {
           <img class="card-img-top" src="${element.text.strAlbumThumb}" alt="Cover img not found">
           <div class="card-body">
             <h5 class="card-title">${element.text.strAlbum}</h5>
-            <p class="card-text">${element.text.strDescriptionEN}</p>
+              <a class="submit" data-bs-toggle="collapse" href="#album${index}" role="button" aria-expanded="false" aria-controls="album${index}">
+                  description
+              </a>
+          
+              <div class="collapse" id="album${index}">
+                  <div class="card card-body">${element.text.strDescriptionEN}</div>
+              </div>
             <p class="card-text"><small class="text-muted">Year: ${element.text.intYearReleased}</small></p>
           </div>
       </div>
       `;
       container.append(album);
+      index++;
     } else if (element.text) {
       //other cases
       const paragraph = document.createElement(element.type);
@@ -43,6 +51,48 @@ const addContent = (content, container) => {
       container.append(paragraph);
     }
   }
+};
+
+const createChart = ({
+  energy,
+  speechiness,
+  acousticness,
+  instrumentalness,
+  liveness,
+  valence,
+}) => {
+  console.log(energy);
+  new Chartist.Bar(
+    ".ct-chart",
+    {
+      labels: [
+        "energy",
+        "speechiness",
+        "acousticness",
+        "instrumentalness",
+        "liveness",
+        "valence",
+      ],
+      series: [
+        [
+          energy,
+          speechiness,
+          acousticness,
+          instrumentalness,
+          liveness,
+          valence,
+        ],
+      ],
+    },
+    {
+      seriesBarDistance: 10,
+      reverseData: true,
+      horizontalBars: true,
+      axisY: {
+        offset: 150,
+      },
+    }
+  );
 };
 
 button.addEventListener("click", () => {
@@ -107,6 +157,8 @@ button.addEventListener("click", () => {
             );
 
             artistBio.innerText = artistInfo.artist_bio;
+            createChart(audioFeatures.audio_features);
+
             allAboutThatTrack.classList.toggle("invisible"); //make whole div visible
           }
         );
