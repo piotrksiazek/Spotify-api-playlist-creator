@@ -28,7 +28,7 @@ const addContent = (content, container) => {
       album.classList.add("album");
       album.innerHTML = `
       <div class="card" style="min-width: 18rem; max-width: 22rem;">
-          <img class="card-img-top" src="${element.text.strAlbumThumb}" alt="Cover img not found">
+          <img class="card-img-top" src="${element.text.strAlbumThumb}" onerror="this.src='static/images/whiteSquare.png';">
           <div class="card-body">
             <h5 class="card-title">${element.text.strAlbum}</h5>
               <a class="submit" data-bs-toggle="collapse" href="#album${index}" role="button" aria-expanded="false" aria-controls="album${index}">
