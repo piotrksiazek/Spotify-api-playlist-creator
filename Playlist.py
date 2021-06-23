@@ -91,6 +91,8 @@ class Playlist:
                 else:
                     track_list.append(random_track_id)
                     break
+        if 'spotify:track:' not in track_list[0]:
+            track_list = ['spotify:track:' + track_id for track_id in track_list]
         return track_list
 
     @staticmethod

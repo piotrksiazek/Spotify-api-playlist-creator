@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block content %} 
+<form class="form" id="mirror" action="" method="post">
+    <select name="playlist" class="playlists-select"></select>
+    <input type="text" name="name" id="playlistName" placeholder="New Playlist" minlength="1" maxlength="14">
+    <input type="submit" class="submit">
+</form>
+{% if error %}
+<p>{{error}}</p>
+{% endif %}
+
+<script src={{ url_for('static', filename='mirror.js') }}></script>
+{% endblock %}

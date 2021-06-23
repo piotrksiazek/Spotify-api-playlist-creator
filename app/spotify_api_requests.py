@@ -48,9 +48,9 @@ def get_user_playlists():
         response.append(playlist)
     return json.dumps(response)
 
-@spotify_api_requests.route('/get_playlist_tracks')
-def get_playlist_tracks():
-    return Playlist.get_playlist_items(spotify, )
+# @spotify_api_requests.route('/get_playlist_tracks')
+# def get_playlist_tracks():
+#     return Playlist.get_playlist_items(spotify, )
 
 
 def get_user_id():

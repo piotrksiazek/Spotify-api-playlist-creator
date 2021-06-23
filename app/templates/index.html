@@ -1,12 +1,9 @@
 {% extends "base.html" %} {% block content %}
-<div class="narrow">
-  <a href={{url_for('authorize')}}>login</a>
-</div>
 
 <section class="showcase">
   <div class="container grid">
     <div class="showcase-text">
-      <h1>Explore new music</h1>
+      <h1>Custom recommendations</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -16,7 +13,55 @@
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
         mollit anim id est laborum
       </p>
-      <a href="" class="btn btn-outline">Loerm ipsum</a>
+      <a href="{{ url_for('recommendations') }}" class="btn submit btn-outline"
+        >Go</a
+      >
+    </div>
+
+    <div class="showcase-text">
+      <h1>All about that track</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      </p>
+      <a
+        href="{{ url_for('all_about_that_track') }}"
+        class="btn submit btn-outline"
+        >Go</a
+      >
+    </div>
+
+    <div class="showcase-text">
+      <h1>Least popular track</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      </p>
+      <a
+        href="{{ url_for('least_popular_track') }}"
+        class="btn submit btn-outline"
+        >Go</a
+      >
+    </div>
+
+    <div class="showcase-text">
+      <h1>One album one track</h1>
+      <p>
+        NOT AVAILABLE Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+        enim ad minim
+      </p>
+      <a href="" class="btn submit btn-outline">Go</a>
+    </div>
+
+    <div class="showcase-text">
+      <h1>Mirrored playlist</h1>
+      <p>
+        NOT AVAILABLE Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+        enim ad minim
+      </p>
+      <a href="{{ url_for('mirror') }}" class="btn submit btn-outline">Go</a>
     </div>
   </div>
 </section>

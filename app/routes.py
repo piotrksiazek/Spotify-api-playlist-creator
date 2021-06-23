@@ -76,6 +76,7 @@ def authorize():
 def index():
     return render_template('index.html')
 
+
 @app.route('/recommendations', methods=['GET', 'POST'])
 def recommendations():
     if can_make_request():
@@ -135,6 +136,40 @@ def get_artist_info():
     artist_name = request.args['artist_name']
     return Track.get_artist_info_audiodb(artist_name)
 #end all about that track
+
+
+# @app.route('/one_album_one_track', methods=['GET', 'POST'])
+# def one_album_one_track():
+#     user_playlists = models.UserPlaylist.query.filter_by(user_id=current_user.id).all()
+#     form = OriginDestination()
+#     form.destination_playlist.choices = [user_playlist.playlist_name for user_playlist in user_playlists if user_playlist.user_id == current_user.id]
+#     error_message = ""
+#     if form.validate_on_submit():
+#         try:
+#             track_ids = Playlist.get_random_track_from_each_album(spotify, form.artist.data)
+#             playlist_id = models.UserPlaylist.query.filter_by(playlist_name=form.destination_playlist.data).first().playlist_id
+#             spotify.playlist_add_items(playlist_id, track_ids)
+#         except spotipy.exceptions.SpotifyException:
+#             error_message = "Wrong ID, maybe you pasted track id instead of artist id?"
+
+#     return render_template('one_album_one_track.html', form=form, error_message=error_message)
+
+@app.route('/mirror', methods=['GET', 'POST'])
+def mirror():
+    error = ""
+    if can_make_request():
+        if request.method == 'POST':
+            try:
+                name = request.form.get('name') if request.form.get('name') else "New Playlist"
+                old_playlist_id = request.form.get('playlist')
+
+                artists_from_old_playlist = Playlist.get_playlist_items(spotify, old_playlist_id, 'artist', unique=True)
+                tracks_from_old_playlist = Playlist.get_playlist_items(spotify, old_playlist_id, 'track', unique=False)
+                new_track_list = Playlist.get_non_popular_tracks(spotify, artists_from_old_playlist, tracks_from_old_playlist)
+                create_and_add_songs(new_track_list, name)
+            except:
+                error = "something went wrong"
+    return render_template('mirror.html', error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)
