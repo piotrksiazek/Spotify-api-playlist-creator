@@ -3,11 +3,17 @@ from spotipy import Spotify
 import random
 from Track import Track
 
-
 class Playlist:
     """
     Wrapper class for methods related to playlists.
     """
+    @staticmethod
+    def addPrefixesTo(track_list: List[str]):
+        """
+        checks if track list items start with spotify:track: and if not, returns mapped list
+        """
+        return ['spotify:track:' + track_id for track_id in track_list]
+
     @staticmethod
     def get_playlist_items(spotify: Spotify, playlist_id: str, type_of_item: str, unique: bool) -> List[str]:
         """
@@ -154,8 +160,7 @@ class Playlist:
         for album_id in albums_ids:
             random_track_id = Track.get_random_track_id_from_album(spotify, album_id)
             random_track_ids.append(random_track_id)
-
-        return list(set(random_track_ids))
+        return Playlist.addPrefixesTo(list(set(random_track_ids)))
 
     @staticmethod
     def clear_playlist(spotify: Spotify, playlist_id: str, user: str) -> None:

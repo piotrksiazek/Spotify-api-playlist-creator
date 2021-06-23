@@ -138,21 +138,21 @@ def get_artist_info():
 #end all about that track
 
 
-# @app.route('/one_album_one_track', methods=['GET', 'POST'])
-# def one_album_one_track():
-#     user_playlists = models.UserPlaylist.query.filter_by(user_id=current_user.id).all()
-#     form = OriginDestination()
-#     form.destination_playlist.choices = [user_playlist.playlist_name for user_playlist in user_playlists if user_playlist.user_id == current_user.id]
-#     error_message = ""
-#     if form.validate_on_submit():
-#         try:
-#             track_ids = Playlist.get_random_track_from_each_album(spotify, form.artist.data)
-#             playlist_id = models.UserPlaylist.query.filter_by(playlist_name=form.destination_playlist.data).first().playlist_id
-#             spotify.playlist_add_items(playlist_id, track_ids)
-#         except spotipy.exceptions.SpotifyException:
-#             error_message = "Wrong ID, maybe you pasted track id instead of artist id?"
+@app.route('/one_album_one_track', methods=['GET', 'POST'])
+def one_album_one_track():
+    error = ""
+    if can_make_request():
+        if request.method == 'POST':
+            try:
+                name = request.form.get('name') if request.form.get('name') else "New Playlist"
+                artist_id = request.form.get('artist_id')
+                new_track_list = Playlist.get_random_track_from_each_album(spotify, artist_id)
+                print(new_track_list)
+                create_and_add_songs(new_track_list, name)
+            except:
+                error = "Something went wrong, maybe you pasted track id instead of artist id?"
 
-#     return render_template('one_album_one_track.html', form=form, error_message=error_message)
+    return render_template('one_album_one_track.html', error=error)
 
 @app.route('/mirror', methods=['GET', 'POST'])
 def mirror():

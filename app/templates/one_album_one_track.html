@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block content %} 
+<form class="form" id="one_album_one_track" action="" method="post">
+    <input type="text" name="artist_id" placeholder="Artist id" minlength="1" maxlength="200">
+    <input type="name" name="name" placeholder="New playlist" minlength="1" maxlength="30">
+    <input type="submit" class="submit">
+</form>
+{% if error %}
+<p>{{error}}</p>
+{% endif %}
+
+<script src={{ url_for('static', filename='oneAlbumOneTrack.js') }}></script>
+{% endblock %}
