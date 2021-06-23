@@ -10,6 +10,7 @@ from config import CLIENT_ID, CLIENT_SECRET, scope, redirect_uri
 from .spotify_api_requests import make_api_request, can_make_request, spotify, get_user_id, create_new_playlist, create_and_add_songs, add_prefix
 from Playlist import Playlist
 from Track import Track
+import sys
 
 AUTHORIZE_BASE_URL = 'https://accounts.spotify.com/authorize/?'
 TOKEN_BASE_URL = 'https://accounts.spotify.com/api/token'
@@ -74,6 +75,11 @@ def authorize():
 
 @app.route('/')
 def index():
+        #delete
+    for item in session.items():
+        print(f'token{item}')
+        sys.stdout.flush()
+    #delete
     return render_template('index.html')
 
 
