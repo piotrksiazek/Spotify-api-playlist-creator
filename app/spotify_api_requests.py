@@ -37,6 +37,8 @@ def make_api_request(endpoint: str, post_=False, put_=False, params={}) -> str:
     #     return response.json() if response.status_code == 200 else {"error": "spotify api request failed"}
     # return {"error": "spotify api request failed"}
     access_token = os.environ.get("access_token")
+    print("my access token " + access_token)
+    sys.stdout.flush()
     headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + access_token}
 
     if post_:
