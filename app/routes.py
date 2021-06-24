@@ -32,7 +32,7 @@ def spotify_callback():
     })
     print("RESPONSE STATUS CODE: " + response.status_code)
     sys.stdout.flush()
-    if response.status_code == 200:
+    if response.status_code == 200 or response.status_code == 302:
         response = response.json()
         session['access_token'] = response['access_token']
         session['token_type'] = response['token_type']
