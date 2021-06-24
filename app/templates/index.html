@@ -21,8 +21,8 @@
     <div class="showcase-text">
       <h1>All about that track</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        Enter spotify track id to get audio features chart, lyrics, all albums
+        from that artist and description.
       </p>
       <a
         href="{{ url_for('all_about_that_track') }}"
@@ -33,10 +33,7 @@
 
     <div class="showcase-text">
       <h1>Least popular track</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      </p>
+      <p>Enter spotify artist id to get the least popular track.</p>
       <a
         href="{{ url_for('least_popular_track') }}"
         class="btn submit btn-outline"
@@ -47,9 +44,8 @@
     <div class="showcase-text">
       <h1>One album one track</h1>
       <p>
-        NOT AVAILABLE Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-        enim ad minim
+        Enter spotify artist id and specify new playlist name to get one track
+        from each of artist's albums.
       </p>
       <a
         href="{{ url_for('one_album_one_track') }}"
@@ -61,9 +57,9 @@
     <div class="showcase-text">
       <h1>Mirrored playlist</h1>
       <p>
-        NOT AVAILABLE Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-        enim ad minim
+        Choose an existing playlist of yours and specify new playlist name, get
+        new playlist, where each track is replaced with different track from
+        corresponding artist.
       </p>
       <a href="{{ url_for('mirror') }}" class="btn submit btn-outline">Go</a>
     </div>
