@@ -37,6 +37,13 @@ def spotify_callback():
         session['refresh_token'] = response['refresh_token']
         session['expires_in'] = response['expires_in']
         session['expiration_date'] = datetime.now() + timedelta(seconds=session['expires_in'])
+
+        #delete
+        for item in session.items():
+            print(f'token:               {item}')
+            sys.stdout.flush()
+        #delete
+
         if 'error' in response.keys():
             return response['error']
     return redirect(url_for('index'))
@@ -75,12 +82,6 @@ def authorize():
 
 @app.route('/')
 def index():
-        #delete
-    session['my_key'] = "does it even work"
-    for item in session.items():
-        print(f'token{item}')
-        sys.stdout.flush()
-    #delete
     return render_template('index.html')
 
 
