@@ -7,6 +7,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from typing import List
 import sys
+import os
 
 BASE_URL = "https://api.spotify.com/v1/me/"
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
@@ -23,7 +24,8 @@ def make_api_request(endpoint: str, post_=False, put_=False, params={}) -> str:
     print (f'access token: {session.get("access_token")}') # python 3
     sys.stdout.flush()
     if can_make_request():
-        access_token = session.get("access_token")
+        # access_token = session.get("access_token")
+        access_token = os.environ.get("access_token")
         headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + access_token}
 
         if post_:
