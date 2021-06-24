@@ -21,35 +21,20 @@ def can_make_request():
     return True
 
 def make_api_request(endpoint: str, post_=False, put_=False, params={}) -> str:
-    # access_token = os.environ.get("access_token")
-    # if can_make_request():
-    #     access_token = session.get("access_token")
-    #     headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + access_token}
+    if can_make_request():
+        access_token = session.get("access_token")
+        headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + access_token}
 
-    #     if post_:
-    #         requests.post(BASE_URL + endpoint, params, headers=headers)
+        if post_:
+            requests.post(BASE_URL + endpoint, params, headers=headers)
 
-    #     if put_:
-    #         requests.put(BASE_URL + endpoint, headers=headers)
+        if put_:
+            requests.put(BASE_URL + endpoint, headers=headers)
 
-    #     response = requests.get(BASE_URL + endpoint, {}, headers=headers)
+        response = requests.get(BASE_URL + endpoint, {}, headers=headers)
 
-    #     return response.json() if response.status_code == 200 else {"error": "spotify api request failed"}
-    # return {"error": "spotify api request failed"}
-    access_token = os.environ.get("access_token")
-    print("my access token " + access_token)
-    sys.stdout.flush()
-    headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + access_token}
-
-    if post_:
-        requests.post(BASE_URL + endpoint, params, headers=headers)
-
-    if put_:
-        requests.put(BASE_URL + endpoint, headers=headers)
-
-    response = requests.get(BASE_URL + endpoint, {}, headers=headers)
-
-    return response.json() if response.status_code == 200 else {"error": "spotify api request failed"}
+        return response.json() if response.status_code == 200 else {"error": "spotify api request failed"}
+    return {"error": "spotify api request failed"}
 
 
 @spotify_api_requests.route('/get_user_playlists')

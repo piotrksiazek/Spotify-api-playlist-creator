@@ -36,13 +36,18 @@ def spotify_callback():
         session['token_type'] = response['token_type']
         session['refresh_token'] = response['refresh_token']
         session['expires_in'] = response['expires_in']
+
+        print(f'|||||||||access_token: {response["access_token"]}')
+        sys.stdout.flush()
+        print(f'|||||||||token_type: {response["token_type"]}')
+        sys.stdout.flush()
+        print(f'|||||||||refresh_token: {response["refresh_token"]}')
+        sys.stdout.flush()
+        print(f'|||||||||expires_in: {response["expires_in"]}')
+        sys.stdout.flush()
+
         session['expiration_date'] = datetime.now() + timedelta(seconds=session['expires_in'])
 
-    #delete
-    for item in session.items():
-        print(f'\ttutaj jestem:               {item}')
-        sys.stdout.flush()
-    #delete
 
         if 'error' in response.keys():
             return response['error']
