@@ -176,6 +176,3 @@ def mirror():
             except:
                 error = "something went wrong"
     return render_template('mirror.html', error=error)
-
-if __name__ == '__main__':
-    app.run(debug=True)
