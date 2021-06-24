@@ -30,8 +30,7 @@ def spotify_callback():
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET
     })
-    print("RESPONSE STATUS CODE: " + str(response.status_code))
-    sys.stdout.flush()
+
     if response.status_code == 200:
         response = response.json()
         session['access_token'] = response['access_token']
