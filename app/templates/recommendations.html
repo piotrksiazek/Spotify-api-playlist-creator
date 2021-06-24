@@ -1,8 +1,11 @@
 {% extends "base.html" %} {% block content %}
 <div style="padding: 50px">
   <form class="form" id="recommendationsForm" action={{url_for('recommendations')}} method="post">
-    <select class="playlists-select"></select>
-    <input type="text" name="name" id="playlistName" placeholder="New Playlist" minlength="1" maxlength="14">
+    <div class="center-div">
+      <h1>Custom recommendations</h1>
+      <select class="playlists-select"></select>
+      <input type="text" name="name" id="playlistName" placeholder="New Playlist" minlength="1" maxlength="14">
+    <div>
     <!-- range inputs -->
     <div> 
       <div class="centered2">

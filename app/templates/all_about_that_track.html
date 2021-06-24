@@ -1,70 +1,73 @@
-{% extends "base.html" %} {% block content %} 
-<input type="text" placeholder="Spotify artist uri">
-<button class="submit">Submit</button>
-<div id="all_about_that_track_error"></div>
-<div id="allAboutThatTrack" class="container invisible">
-    <!-- spotifyWidget -->
-    <div id="spotifyWidget"></div>
-    <!-- end spotifyWidget -->
+{% extends "base.html" %} {% block content %}
+<div class="center-div" style="width:90%;">
+  <h1>All about that track</h1>
+  <input type="text" placeholder="Spotify track uri">
+  <div><button class="submit">Submit</button></div>
+  <div id="all_about_that_track_error"></div>
+  <div id="allAboutThatTrack" class="container invisible">
+      <!-- spotifyWidget -->
+      <div id="spotifyWidget"></div>
+      <!-- end spotifyWidget -->
 
-    <!-- lyrics -->
-    <div>
-        <a class="submit" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            lyrics
-        </a>
-    
-        <div class="collapse" id="collapseExample">
-            <div id="lyrics" class="card card-body"></div>
-        </div>
-    </div>
-    <!-- end lyrics -->
+      <!-- lyrics -->
+      <div>
+          <a class="submit" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+              lyrics
+          </a>
+      
+          <div class="collapse" id="collapseExample">
+              <div id="lyrics" class="card card-body"></div>
+          </div>
+      </div>
+      <!-- end lyrics -->
 
-    <!-- chart -->
-    <div class="ct-chart ct-perfect-fourth container horizontal-chart narrow"></div>
-    <!-- end chart -->
+      <!-- chart -->
+      <div class="ct-chart ct-perfect-fourth container horizontal-chart narrow"></div>
+      <!-- end chart -->
 
-    <!-- bio -->
-    <div>
-        <div class="container">
-            <div class="card mb-3">
-                <!-- artist banner -->
-              <img id="artistBanner" class="card-img-top" src="" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Artist bio</h5>
-                <!-- artistBio -->
-                <p id="artistBio" class="card-text text-justify"></p>
+      <!-- bio -->
+      <div>
+          <div class="container">
+              <div class="card mb-3">
+                  <!-- artist banner -->
+                <img id="artistBanner" class="card-img-top" src="" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Artist bio</h5>
+                  <!-- artistBio -->
+                  <p id="artistBio" class="card-text text-justify"></p>
+                </div>
               </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                  <div class="col-sm-6">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title"><span class="material-icons">vpn_key</span> Specifics</h5>
-                        <!-- specifics -->
-                        <p id="specifics" class="card-text">
-                        </p>
+          </div>
+          <div class="container">
+              <div class="row">
+                    <div class="col-sm-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title"><span class="material-icons">vpn_key</span> Specifics</h5>
+                          <!-- specifics -->
+                          <p id="specifics" class="card-text">
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title">Info</h5>
-                        <!-- info -->
-                        <p id="info" class="card-text">
-                            <!-- formed, number of members, country, website and facebook -->
-                        </p>
+                    <div class="col-sm-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Info</h5>
+                          <!-- info -->
+                          <p id="info" class="card-text">
+                              <!-- formed, number of members, country, website and facebook -->
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-            </div>
-    <!-- end bio -->
+              </div>
+      <!-- end bio -->
 
-    <!-- discography -->
-    <div class="card-group" id="discography" style="padding-top: 2rem;"></div>
-    <!-- and discography -->
-</div>
+      <!-- discography -->
+      <div class="card-group" id="discography" style="padding-top: 2rem;"></div>
+      <!-- and discography -->
+  </div>
+</div> 
 <script src={{ url_for('static', filename='allAboutThatTrack.js') }}></script>
 {% endblock %}

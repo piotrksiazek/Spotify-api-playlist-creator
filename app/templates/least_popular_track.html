@@ -1,10 +1,11 @@
 {% extends "base.html" %} {% block content %}
-<div class="containter narrow">
+<div class="center-div">
+    <h1>Least popular track</h1>
     <form action="" method="get">
         <input type="text" placeholder="Spotify artist uri">
     </form>
     <button class="submit">Submit</button>
+    <div id="spotifyWidget"></div>
 </div>
-<div id="spotifyWidget"></div>
 <script src={{ url_for('static', filename='leastPopularTrack.js') }}></script>
 {% endblock %}
