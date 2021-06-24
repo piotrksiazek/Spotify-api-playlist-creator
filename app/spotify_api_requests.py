@@ -21,6 +21,8 @@ def can_make_request():
     return True
 
 def make_api_request(endpoint: str, post_=False, put_=False, params={}) -> str:
+    print(session.items())
+    sys.stdout.flush()
     if can_make_request():
         access_token = session.get("access_token")
         headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + access_token}

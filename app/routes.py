@@ -30,23 +30,14 @@ def spotify_callback():
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET
     })
-    print("RESPONSE STATUS CODE: " + response.status_code)
+    print("RESPONSE STATUS CODE: " + str(response.status_code))
     sys.stdout.flush()
-    if response.status_code == 200 or response.status_code == 302:
+    if response.status_code == 200:
         response = response.json()
         session['access_token'] = response['access_token']
         session['token_type'] = response['token_type']
         session['refresh_token'] = response['refresh_token']
         session['expires_in'] = response['expires_in']
-
-        print(f'|||||||||access_token: {response["access_token"]}')
-        sys.stdout.flush()
-        print(f'|||||||||token_type: {response["token_type"]}')
-        sys.stdout.flush()
-        print(f'|||||||||refresh_token: {response["refresh_token"]}')
-        sys.stdout.flush()
-        print(f'|||||||||expires_in: {response["expires_in"]}')
-        sys.stdout.flush()
 
         session['expiration_date'] = datetime.now() + timedelta(seconds=session['expires_in'])
 
