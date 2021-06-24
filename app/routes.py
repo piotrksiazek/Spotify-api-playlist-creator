@@ -76,6 +76,7 @@ def authorize():
 @app.route('/')
 def index():
         #delete
+    session['my_key'] = "does it even work"
     for item in session.items():
         print(f'token{item}')
         sys.stdout.flush()

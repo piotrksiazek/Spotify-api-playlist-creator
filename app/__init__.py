@@ -9,8 +9,6 @@ import os
 app = Flask(__name__)
 app.config.from_object(Config)
 
-app.secret_key = "secret key" #just for testing
-
 app.register_blueprint(spotify_api_requests, url_prefix="")
 
 from app import routes, models
