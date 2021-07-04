@@ -4,15 +4,6 @@
 
 ## Functionality
 
-After installation you will need to make a new account using login, password, email and spotify ID.
-When logged in you will be able to access functionalities. First step is to go to My Items tab and make a new playlist.
-Then you can go to Actions and choose one of following:
-
-- Mirror Playlist - select origin playlist that belongs to your personal Spotify account and select one of created playlists (theese are hosted on
-  my account but you are the only one that can modify them). After submitting, destination playlist will contain the same amount of songs and
-  matching artists, but with different tracks. For example if you have:
-
-=======
 When logged in with Spoitfy you will be able to access functionalities. First step is to go to My Items tab and make a new playlist.
 Then you can choose one of following:
 
